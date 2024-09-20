@@ -3,8 +3,7 @@ package com.walletconnect.sample.wallet.ui.routes.dialog_routes.session_request
 import android.net.Uri
 import androidx.core.net.toUri
 import androidx.lifecycle.ViewModel
-import com.google.firebase.crashlytics.ktx.crashlytics
-import com.google.firebase.ktx.Firebase
+
 import com.walletconnect.android.cacao.signature.SignatureType
 import com.walletconnect.android.internal.common.exception.NoConnectivityException
 import com.walletconnect.android.utils.cacao.sign
@@ -48,7 +47,6 @@ class SessionRequestViewModel : ViewModel() {
                         onSuccess(redirect)
                     },
                     onError = { error ->
-                        Firebase.crashlytics.recordException(error.throwable)
                         if (error.throwable !is NoConnectivityException) {
                             clearSessionRequest()
                         }
@@ -58,7 +56,6 @@ class SessionRequestViewModel : ViewModel() {
                 onError(Throwable("Reject - Cannot find session request"))
             }
         } catch (e: Exception) {
-            Firebase.crashlytics.recordException(e)
             clearSessionRequest()
             onError(e.cause ?: Throwable("Undefined error, please check your Internet connection"))
         }
@@ -114,7 +111,6 @@ class SessionRequestViewModel : ViewModel() {
                         onSuccess(redirect)
                     },
                     onError = { error ->
-                        Firebase.crashlytics.recordException(error.throwable)
                         if (error.throwable !is NoConnectivityException) {
                             clearSessionRequest()
                         }
@@ -124,7 +120,6 @@ class SessionRequestViewModel : ViewModel() {
                 onError(Throwable("Approve - Cannot find session request"))
             }
         } catch (e: Exception) {
-            Firebase.crashlytics.recordException(e)
             clearSessionRequest()
             onError(e.cause ?: Throwable("Undefined error, please check your Internet connection"))
         }

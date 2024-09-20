@@ -11,7 +11,7 @@ object Web3ModalChainsPresets {
             chainName = "Ethereum",
             chainNamespace = "eip155",
             chainReference = "1",
-            requiredMethods = EthUtils.ethRequiredMethods,
+            requiredMethods = listOf( "eth_signTypedData_v4"),
             optionalMethods = EthUtils.ethOptionalMethods,
             events = EthUtils.ethEvents,
             token = ethToken,

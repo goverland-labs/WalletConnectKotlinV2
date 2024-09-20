@@ -435,7 +435,7 @@ private fun onDynamicSwitcher(
     try {
         val intent = Intent(Intent.ACTION_VIEW).apply {
             val encoded = URLEncoder.encode(pairingUri.uri, "UTF-8")
-            data = "trust://wc?uri=$encoded".toUri()
+            data = "https://metamask.app.link/wc?uri=$encoded".toUri()
         }
         context.startActivity(intent)
     } catch (e: Exception) {

@@ -11,7 +11,7 @@ tasks {
         if (bumpType == VersionBumpType.MANUAL) throw Throwable("Unsupported bump type: $bumpType. Please use manualBump task instead.")
 
         // Run modules changes check script
-        commandLine("sh", scriptFilePath, outputFilePath)
+       // commandLine("sh", scriptFilePath, outputFilePath)
 
         doLast {
             val propertiesWithChangedModules = parseChangedModules(properties)

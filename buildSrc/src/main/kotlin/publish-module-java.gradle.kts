@@ -1,16 +1,16 @@
 plugins {
     `maven-publish`
     signing
-    id("org.jetbrains.dokka")
+   // id("org.jetbrains.dokka")
 }
 
 tasks {
     plugins.withId("java") {
-        register("javadocJar", Jar::class) {
-            dependsOn(named("dokkaHtml"))
-            archiveClassifier.set("javadoc")
-            from("${layout.buildDirectory}/dokka/html")
-        }
+//        register("javadocJar", Jar::class) {
+//            dependsOn(named("dokkaHtml"))
+//            archiveClassifier.set("javadoc")
+//            from("${layout.buildDirectory}/dokka/html")
+//        }
         register("sourceJar", Jar::class) {
             archiveClassifier.set("sources")
             from(((project as ExtensionAware).extensions.getByName("sourceSets") as SourceSetContainer).getByName("main").allSource)
@@ -25,7 +25,7 @@ afterEvaluate {
                 plugins.withId("java") {
                     from(components["java"])
                     artifact(tasks.getByName("sourceJar"))
-                    artifact(tasks.getByName("javadocJar"))
+                  //  artifact(tasks.getByName("javadocJar"))
                 }
 
                 plugins.withId("java-platform") {
@@ -71,11 +71,11 @@ afterEvaluate {
     }
 }
 
-signing {
-    useInMemoryPgpKeys(
-        System.getenv("SIGNING_KEY_ID"),
-        System.getenv("SIGNING_KEY"),
-        System.getenv("SIGNING_PASSWORD")
-    )
-    sign(publishing.publications)
-}
+//signing {
+//    useInMemoryPgpKeys(
+//        System.getenv("SIGNING_KEY_ID"),
+//        System.getenv("SIGNING_KEY"),
+//        System.getenv("SIGNING_PASSWORD")
+//    )
+//    sign(publishing.publications)
+//}

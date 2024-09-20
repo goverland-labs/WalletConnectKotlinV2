@@ -51,8 +51,6 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.HorizontalPagerIndicator
 import com.google.accompanist.pager.rememberPagerState
-import com.google.firebase.crashlytics.ktx.crashlytics
-import com.google.firebase.ktx.Firebase
 import com.walletconnect.sample.common.ui.themedColor
 import com.walletconnect.sample.wallet.R
 import com.walletconnect.sample.wallet.ui.common.Content
@@ -101,7 +99,6 @@ fun ConnectionDetailsRoute(navController: NavController, connectionId: Int?, con
                                     },
                                     onError = { error ->
                                         isEmitLoading = false
-                                        Firebase.crashlytics.recordException(error.throwable)
                                         composableScope.launch(Dispatchers.Main) {
                                             Toast.makeText(context, "Event emit error. Error: ${error.throwable.message}", Toast.LENGTH_SHORT).show()
                                         }
@@ -109,7 +106,6 @@ fun ConnectionDetailsRoute(navController: NavController, connectionId: Int?, con
                                 )
                             } catch (e: Exception) {
                                 isEmitLoading = false
-                                Firebase.crashlytics.recordException(e)
                                 composableScope.launch(Dispatchers.Main) {
                                     Toast.makeText(context, "Event emit error. Error:  ${e.message}", Toast.LENGTH_SHORT).show()
                                 }
@@ -143,7 +139,6 @@ fun ConnectionDetailsRoute(navController: NavController, connectionId: Int?, con
                                     },
                                     onError = { error ->
                                         isUpdateLoading = false
-                                        Firebase.crashlytics.recordException(error.throwable)
                                         composableScope.launch(Dispatchers.Main) {
                                             Toast.makeText(context, "Session update error. Error: ${error.throwable.message}", Toast.LENGTH_SHORT).show()
                                         }
@@ -151,7 +146,6 @@ fun ConnectionDetailsRoute(navController: NavController, connectionId: Int?, con
                                 )
                             } catch (e: Exception) {
                                 isUpdateLoading = false
-                                Firebase.crashlytics.recordException(e)
                                 composableScope.launch(Dispatchers.Main) {
                                     Toast.makeText(context, "Session update error. Error: ${e.message}", Toast.LENGTH_SHORT).show()
                                 }
@@ -179,7 +173,6 @@ fun ConnectionDetailsRoute(navController: NavController, connectionId: Int?, con
                                         }
                                     },
                                     onError = { error ->
-                                        Firebase.crashlytics.recordException(error.throwable)
                                         isDeleteLoading = false
                                         connectionsViewModel.refreshConnections()
                                         composableScope.launch(Dispatchers.Main) {
@@ -187,7 +180,6 @@ fun ConnectionDetailsRoute(navController: NavController, connectionId: Int?, con
                                         }
                                     })
                             } catch (e: Exception) {
-                                Firebase.crashlytics.recordException(e)
                                 isDeleteLoading = false
                                 connectionsViewModel.refreshConnections()
                                 composableScope.launch(Dispatchers.Main) {
@@ -215,7 +207,6 @@ fun ConnectionDetailsRoute(navController: NavController, connectionId: Int?, con
                                     }
                                 },
                                 onError = { error ->
-                                    Firebase.crashlytics.recordException(error.throwable)
                                     composableScope.launch(Dispatchers.Main) {
                                         Toast.makeText(context, "Switch account error: ${error.throwable.message ?: "Unknown error please contact support"}", Toast.LENGTH_SHORT).show()
                                     }

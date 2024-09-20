@@ -5,15 +5,15 @@ import com.android.build.gradle.internal.api.DefaultAndroidSourceDirectorySet
 plugins {
     `maven-publish`
     signing
-    id("org.jetbrains.dokka")
+//    id("org.jetbrains.dokka")
 }
 
 tasks {
-    register("javadocJar", Jar::class) {
-        dependsOn(named("dokkaHtml"))
-        archiveClassifier.set("javadoc")
-        from("${layout.buildDirectory}/dokka/html")
-    }
+//    register("javadocJar", Jar::class) {
+//        dependsOn(named("dokkaHtml"))
+//        archiveClassifier.set("javadoc")
+//        from("${layout.buildDirectory}/dokka/html")
+//    }
 
     register("sourcesJar", Jar::class) {
         archiveClassifier.set("sources")
@@ -33,7 +33,7 @@ afterEvaluate {
         publications {
             register<MavenPublication>("release") {
                 afterEvaluate { from(components["release"]) }
-                artifact(tasks.getByName("javadocJar"))
+                //artifact(tasks.getByName("javadocJar"))
                 artifact(tasks.getByName("sourcesJar"))
 
                 groupId = "com.walletconnect"
@@ -74,11 +74,11 @@ afterEvaluate {
     }
 }
 
-signing {
-    useInMemoryPgpKeys(
-        System.getenv("SIGNING_KEY_ID"),
-        System.getenv("SIGNING_KEY"),
-        System.getenv("SIGNING_PASSWORD")
-    )
-    sign(publishing.publications)
-}
+//signing {
+//    useInMemoryPgpKeys(
+//        System.getenv("SIGNING_KEY_ID"),
+//        System.getenv("SIGNING_KEY"),
+//        System.getenv("SIGNING_PASSWORD")
+//    )
+//    sign(publishing.publications)
+//}

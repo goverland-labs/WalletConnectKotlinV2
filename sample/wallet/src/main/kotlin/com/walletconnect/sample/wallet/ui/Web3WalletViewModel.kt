@@ -3,8 +3,7 @@ package com.walletconnect.sample.wallet.ui
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.firebase.crashlytics.ktx.crashlytics
-import com.google.firebase.ktx.Firebase
+
 import com.walletconnect.android.Core
 import com.walletconnect.sample.wallet.domain.ISSUER
 import com.walletconnect.sample.wallet.domain.WCDelegate
@@ -141,14 +140,12 @@ class Web3WalletViewModel : ViewModel() {
         try {
             val pairingParams = Wallet.Params.Pair(pairingUri.removePrefix("kotlin-web3wallet://wc?uri="))
             Web3Wallet.pair(pairingParams) { error ->
-                Firebase.crashlytics.recordException(error.throwable)
                 viewModelScope.launch {
                     _isLoadingFlow.value = false
                     _eventsSharedFlow.emit(PairingEvent.Error(error.throwable.message ?: "Unexpected error happened, please contact support"))
                 }
             }
         } catch (e: Exception) {
-            Firebase.crashlytics.recordException(e)
             viewModelScope.launch {
                 _isLoadingFlow.value = false
                 _eventsSharedFlow.emit(PairingEvent.Error(e.message ?: "Unexpected error happened, please contact support"))

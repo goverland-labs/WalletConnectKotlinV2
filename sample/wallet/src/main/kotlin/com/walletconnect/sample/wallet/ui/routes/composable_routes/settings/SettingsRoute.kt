@@ -63,7 +63,7 @@ fun SettingsRoute(navController: NavHostController) {
             "Device", listOf(
                 Item.SettingCopyableItem("Client ID", viewModel.clientId),
                 Item.SettingCopyableItem("Device token", deviceToken),
-                Item.SettingCopyableItem("App Version", BuildConfig.VERSION_NAME)
+               // Item.SettingCopyableItem("App Version", BuildConfig.VERSION_NAME)
             )
         ),
     )
@@ -182,7 +182,7 @@ fun SettingScreenPreview() {
             "Device", listOf(
                 Item.SettingCopyableItem("Client ID", "did:key:z6Mko1GgpY4uTw9VL245is45kPYi9UnYKTXYJEhWhgrxsDXz"),
                 Item.SettingCopyableItem("Device token", "314875502ff3a6e23f8a6e8dc3259fe4ee0b429d0ab874efa837e8677b2d215d"),
-                Item.SettingCopyableItem("App Version", BuildConfig.VERSION_NAME)
+               // Item.SettingCopyableItem("App Version", BuildConfig.VERSION_NAME)
             )
         ),
     )

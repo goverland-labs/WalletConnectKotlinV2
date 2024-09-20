@@ -1,5 +1,6 @@
 package com.walletconnect.sample.dapp.domain
 
+import android.util.Log
 import com.walletconnect.android.Core
 import com.walletconnect.android.CoreClient
 import com.walletconnect.sample.common.tag
@@ -8,9 +9,7 @@ import com.walletconnect.wcmodal.client.WalletConnectModal
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -29,6 +28,15 @@ object DappDelegate : WalletConnectModal.ModalDelegate, CoreClient.CoreDelegate 
     init {
         WalletConnectModal.setDelegate(this)
         CoreClient.setDelegate(this)
+        wcEventModels.onEach {
+            Log.e("--------->",""+it)
+        }.launchIn(scope)
+        coreEvents.onEach {
+            Log.e("--------->",""+it)
+        }.launchIn(scope)
+        connectionState.onEach {
+            Log.e("--------->",""+it)
+        }.launchIn(scope)
     }
 
     override fun onConnectionStateChange(state: Modal.Model.ConnectionState) {

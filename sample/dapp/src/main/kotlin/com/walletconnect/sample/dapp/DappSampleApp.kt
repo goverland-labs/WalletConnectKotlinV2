@@ -1,9 +1,7 @@
 package com.walletconnect.sample.dapp
 
 import android.app.Application
-import com.google.firebase.appdistribution.FirebaseAppDistribution
-import com.google.firebase.crashlytics.ktx.crashlytics
-import com.google.firebase.ktx.Firebase
+import android.util.Log
 import com.walletconnect.android.Core
 import com.walletconnect.android.CoreClient
 import com.walletconnect.sample.common.tag
@@ -32,7 +30,8 @@ class DappSampleApp : Application() {
             projectId = CommonBuildConfig.PROJECT_ID,
             metaData = appMetaData,
         ) {
-            Firebase.crashlytics.recordException(it.throwable)
+            Log.e("as","", it.throwable)
+            //Firebase.crashlytics.recordException(it.throwable)
         }
 
         WalletConnectModal.initialize(
@@ -41,6 +40,6 @@ class DappSampleApp : Application() {
             Timber.e(tag(this), error.throwable.stackTraceToString())
         }
 
-        FirebaseAppDistribution.getInstance().updateIfNewReleaseAvailable()
+      //  FirebaseAppDistribution.getInstance().updateIfNewReleaseAvailable()
     }
 }

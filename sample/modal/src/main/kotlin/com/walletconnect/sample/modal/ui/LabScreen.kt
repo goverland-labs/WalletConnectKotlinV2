@@ -1,5 +1,6 @@
 package com.walletconnect.sample.modal.ui
 
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,12 +13,14 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.walletconnect.sample.common.getEthSendTransaction
 import com.walletconnect.sample.common.getEthSignTypedData
 import com.walletconnect.sample.common.getPersonalSignBody
 import com.walletconnect.sample.common.ui.commons.BlueButton
+import com.walletconnect.sample.common.ui.theme.PreviewTheme
 import com.walletconnect.sample.modal.ModalSampleDelegate
 import com.walletconnect.web3.modal.client.Modal
 import com.walletconnect.web3.modal.client.Web3Modal
@@ -43,6 +46,7 @@ fun LabScreen(
 
     LaunchedEffect(Unit) {
         ModalSampleDelegate.wcEventModels.collect { event ->
+            Log.e("=============>", "$event")
             when (event) {
                 is Modal.Model.SessionRequestResponse -> {
                     when (event.result) {

@@ -1,8 +1,7 @@
 package com.walletconnect.sample.wallet.ui.routes.dialog_routes.session_authenticate
 
 import androidx.lifecycle.ViewModel
-import com.google.firebase.crashlytics.ktx.crashlytics
-import com.google.firebase.ktx.Firebase
+
 import com.walletconnect.android.cacao.signature.SignatureType
 import com.walletconnect.android.internal.common.exception.NoConnectivityException
 import com.walletconnect.android.utils.cacao.sign
@@ -51,12 +50,10 @@ class SessionAuthenticateViewModel : ViewModel() {
                         if (error.throwable !is NoConnectivityException) {
                             WCDelegate.sessionAuthenticateEvent = null
                         }
-                        Firebase.crashlytics.recordException(error.throwable)
                         onError(error.throwable)
                     }
                 )
             } catch (e: Exception) {
-                Firebase.crashlytics.recordException(e)
                 WCDelegate.sessionAuthenticateEvent = null
                 onError(e)
             }
@@ -84,11 +81,9 @@ class SessionAuthenticateViewModel : ViewModel() {
                         if (error.throwable !is NoConnectivityException) {
                             WCDelegate.sessionAuthenticateEvent = null
                         }
-                        Firebase.crashlytics.recordException(error.throwable)
                         onError(error.throwable)
                     })
             } catch (e: Exception) {
-                Firebase.crashlytics.recordException(e)
                 WCDelegate.sessionAuthenticateEvent = null
                 onError(e)
             }

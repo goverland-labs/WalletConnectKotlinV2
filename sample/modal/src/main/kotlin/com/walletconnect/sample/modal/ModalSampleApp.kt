@@ -1,9 +1,7 @@
 package com.walletconnect.sample.modal
 
 import android.app.Application
-import com.google.firebase.appdistribution.FirebaseAppDistribution
-import com.google.firebase.crashlytics.ktx.crashlytics
-import com.google.firebase.ktx.Firebase
+
 import com.walletconnect.android.Core
 import com.walletconnect.android.CoreClient
 import com.walletconnect.android.relay.ConnectionType
@@ -42,21 +40,23 @@ class ModalSampleApp : Application() {
 
         Web3Modal.initialize(Modal.Params.Init(core = CoreClient)) { error ->
             Timber.e(tag(this), error.throwable.stackTraceToString())
-            Firebase.crashlytics.recordException(error.throwable)
+           // Firebase.crashlytics.recordException(error.throwable)
         }
 
-        Web3Modal.setChains(Web3ModalChainsPresets.ethChains.values.toList())
+        val eth = Web3ModalChainsPresets.ethChains["1"]!!
+        val new =    eth.copy(requiredMethods = listOf( "eth_signTypedData_v4"))
+        Web3Modal.setChains(listOf(new))
 
-        val authParams = Modal.Model.AuthPayloadParams(
-            chains = Web3ModalChainsPresets.ethChains.values.toList().map { it.id },
-            domain = "sample.kotlin.modal",
-            uri = "https://web3inbox.com/all-apps",
-            nonce = randomBytes(12).bytesToHex(),
-            statement = "I accept the Terms of Service: https://yourDappDomain.com/",
-            methods = EthUtils.ethMethods
-        )
-        Web3Modal.setAuthRequestParams(authParams)
+//        val authParams = Modal.Model.AuthPayloadParams(
+//            chains = Web3ModalChainsPresets.ethChains.values.toList().map { it.id },
+//            domain = "sample.kotlin.modal",
+//            uri = "https://web3inbox.com/all-apps",
+//            nonce = randomBytes(12).bytesToHex(),
+//            statement = "I accept the Terms of Service: https://yourDappDomain.com/",
+//            methods = EthUtils.ethMethods
+//        )
+//        Web3Modal.setAuthRequestParams(authParams)
 
-        FirebaseAppDistribution.getInstance().updateIfNewReleaseAvailable()
+      //  FirebaseAppDistribution.getInstance().updateIfNewReleaseAvailable()
     }
 }

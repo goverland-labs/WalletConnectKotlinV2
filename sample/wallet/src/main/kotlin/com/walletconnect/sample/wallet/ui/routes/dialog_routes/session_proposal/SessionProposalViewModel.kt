@@ -1,8 +1,7 @@
 package com.walletconnect.sample.wallet.ui.routes.dialog_routes.session_proposal
 
 import androidx.lifecycle.ViewModel
-import com.google.firebase.crashlytics.ktx.crashlytics
-import com.google.firebase.ktx.Firebase
+
 import com.walletconnect.sample.wallet.domain.WCDelegate
 import com.walletconnect.sample.wallet.ui.common.peer.PeerUI
 import com.walletconnect.sample.wallet.ui.common.peer.toPeerUI
@@ -22,7 +21,6 @@ class SessionProposalViewModel : ViewModel() {
 
                 Web3Wallet.approveSession(approveProposal,
                     onError = { error ->
-                        Firebase.crashlytics.recordException(error.throwable)
                         WCDelegate.sessionProposalEvent = null
                         onError(error.throwable)
                     },
@@ -31,7 +29,6 @@ class SessionProposalViewModel : ViewModel() {
                         onSuccess(proposal.redirect)
                     })
             } catch (e: Exception) {
-                Firebase.crashlytics.recordException(e)
                 WCDelegate.sessionProposalEvent = null
                 onError(e)
             }
@@ -56,12 +53,10 @@ class SessionProposalViewModel : ViewModel() {
                         onSuccess(proposal.redirect)
                     },
                     onError = { error ->
-                        Firebase.crashlytics.recordException(error.throwable)
                         WCDelegate.sessionProposalEvent = null
                         onError(error.throwable)
                     })
             } catch (e: Exception) {
-                Firebase.crashlytics.recordException(e)
                 WCDelegate.sessionProposalEvent = null
                 onError(e)
             }

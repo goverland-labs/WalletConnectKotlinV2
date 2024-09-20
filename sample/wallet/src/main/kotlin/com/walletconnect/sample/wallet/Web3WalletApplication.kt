@@ -3,10 +3,7 @@ package com.walletconnect.sample.wallet
 import android.app.Application
 import android.content.ClipData
 import android.content.ClipboardManager
-import com.google.firebase.appdistribution.FirebaseAppDistribution
-import com.google.firebase.crashlytics.ktx.crashlytics
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.messaging.FirebaseMessaging
+
 import com.mixpanel.android.mpmetrics.MixpanelAPI
 import com.pandulapeter.beagle.Beagle
 import com.pandulapeter.beagle.common.configuration.Placement
@@ -56,7 +53,7 @@ class Web3WalletApplication : Application() {
         super.onCreate()
 
         EthAccountDelegate.application = this
-
+https://www.lightpollutionmap.info/geoserver/gwc/service/wms?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&FORMAT=image%2Fpng&TRANSPARENT=true&LAYERS=PostGIS%3AWA_2015&TILED=true&STYLES=WA&SRS=EPSG%3A3857&WIDTH=256&HEIGHT=256&CRS=EPSG%3A3857&BBOX=3130872.4899728%2C7514093.975934721%2C3443959.73897008%2C7827181.224932001
         val projectId = BuildConfig.PROJECT_ID
         val appMetaData = Core.Model.AppMetaData(
             name = "Kotlin Wallet",
@@ -73,7 +70,7 @@ class Web3WalletApplication : Application() {
             projectId = projectId,
             metaData = appMetaData,
             onError = { error ->
-                Firebase.crashlytics.recordException(error.throwable)
+//                Firebase.crashlytics.recordException(error.throwable)
                 println(error.throwable.stackTraceToString())
                 scope.launch {
                     connectionStateFlow.emit(ConnectionState.Error(error.throwable.message ?: ""))
@@ -94,18 +91,18 @@ class Web3WalletApplication : Application() {
                 logger.log("Web3Wallet initialized")
             },
             onError = { error ->
-                Firebase.crashlytics.recordException(error.throwable)
+              //  Firebase.crashlytics.recordException(error.throwable)
                 logger.error(error.throwable.stackTraceToString())
             })
 
         NotifyClient.initialize(
             init = Notify.Params.Init(CoreClient)
         ) { error ->
-            Firebase.crashlytics.recordException(error.throwable)
+           // Firebase.crashlytics.recordException(error.throwable)
             logger.error(error.throwable.stackTraceToString())
         }
 
-        FirebaseAppDistribution.getInstance().updateIfNewReleaseAvailable()
+
 
         registerAccount()
         initializeBeagle()
@@ -123,31 +120,6 @@ class Web3WalletApplication : Application() {
         })
 
 
-        // For testing purposes only
-        FirebaseMessaging.getInstance().token.addOnSuccessListener { token ->
-            addFirebaseBeagleModules = {
-                Web3Wallet.registerDeviceToken(firebaseAccessToken = token, enableEncrypted = true,
-                    onSuccess = {
-                        Timber.tag(tag(this)).e("Successfully registered firebase token for Web3Wallet")
-                    },
-                    onError = {
-                        logger.error("Error while registering firebase token for Web3Wallet: ${it.throwable}")
-                        Firebase.crashlytics.recordException(Throwable("Error while registering firebase token for Web3Wallet: ${it.throwable}"))
-                    })
-
-                Beagle.add(
-                    PaddingModule(size = PaddingModule.Size.LARGE, id = "${token}Padding"),
-                    placement = Placement.Below(id = CoreClient.Push.clientId)
-                )
-                Beagle.add(
-                    TextModule(text = token) {
-                        (getSystemService(CLIPBOARD_SERVICE) as ClipboardManager).setPrimaryClip(ClipData.newPlainText("FMC_Token", token))
-                    },
-                    placement = Placement.Below(id = "${token}Padding")
-                )
-            }
-            addFirebaseBeagleModules()
-        }
 
         handleNotifyMessages()
     }
@@ -158,7 +130,7 @@ class Web3WalletApplication : Application() {
             HeaderModule(
                 title = getString(R.string.app_name),
                 subtitle = BuildConfig.APPLICATION_ID,
-                text = "${BuildConfig.BUILD_TYPE} v${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})"
+                text = "${BuildConfig.BUILD_TYPE} "
             ),
             DividerModule(),
             TextModule(text = EthAccountDelegate.ethAddress) {

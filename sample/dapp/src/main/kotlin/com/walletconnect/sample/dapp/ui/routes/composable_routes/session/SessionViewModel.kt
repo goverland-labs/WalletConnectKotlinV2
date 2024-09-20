@@ -2,8 +2,6 @@ package com.walletconnect.sample.dapp.ui.routes.composable_routes.session
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.firebase.crashlytics.ktx.crashlytics
-import com.google.firebase.ktx.Firebase
 import com.walletconnect.sample.common.Chains
 import com.walletconnect.sample.common.tag
 import com.walletconnect.sample.dapp.domain.DappDelegate
@@ -105,7 +103,7 @@ class SessionViewModel : ViewModel() {
                     },
                     onError = { error ->
                         Timber.tag(tag(this)).e(error.throwable.stackTraceToString())
-                        Firebase.crashlytics.recordException(error.throwable)
+
                         viewModelScope.launch {
                             _sessionEvents.emit(DappSampleEvents.DisconnectError(error.throwable.message ?: "Unknown error, please try again or contact support"))
                         }

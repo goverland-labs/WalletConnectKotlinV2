@@ -3,9 +3,9 @@ plugins {
     id(libs.plugins.kotlin.android.get().pluginId)
     id(libs.plugins.kotlin.parcelize.get().pluginId)
     id(libs.plugins.kotlin.kapt.get().pluginId)
-    alias(libs.plugins.google.services)
+    //alias(libs.plugins.google.services)
     alias(libs.plugins.firebase.crashlytics)
-    id("signing-config")
+   // id("signing-config")
 }
 
 android {
@@ -32,11 +32,11 @@ android {
             buildConfigField("String", "DAPP_APP_LINK", "\"https://web3modal-laboratory-git-chore-kotlin-assetlinks-walletconnect1.vercel.app/dapp_release\"")
         }
 
-        getByName("internal") {
+/*        getByName("internal") {
             manifestPlaceholders["pathPrefix"] = "/dapp_internal"
             buildConfigField("String", "DAPP_APP_LINK", "\"https://web3modal-laboratory-git-chore-kotlin-assetlinks-walletconnect1.vercel.app/dapp_internal\"")
 
-        }
+        }*/
 
         getByName("debug") {
             manifestPlaceholders["pathPrefix"] = "/dapp_debug"
@@ -100,9 +100,9 @@ dependencies {
     debugImplementation(project(":product:walletconnectmodal"))
     debugImplementation(project(":protocol:sign"))
 
-    internalImplementation(project(":core:android"))
-    internalImplementation(project(":product:walletconnectmodal"))
-    internalImplementation(project(":protocol:sign"))
+//    internalImplementation(project(":core:android"))
+//    internalImplementation(project(":product:walletconnectmodal"))
+//    internalImplementation(project(":protocol:sign"))
 
     releaseImplementation(platform("com.walletconnect:android-bom:$BOM_VERSION"))
     releaseImplementation("com.walletconnect:android-core")

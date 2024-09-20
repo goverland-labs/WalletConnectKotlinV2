@@ -1,8 +1,6 @@
 package com.walletconnect.sample.wallet.ui.routes.dialog_routes.auth_request
 
 import androidx.lifecycle.ViewModel
-import com.google.firebase.crashlytics.ktx.crashlytics
-import com.google.firebase.ktx.Firebase
 import com.walletconnect.android.utils.cacao.signHex
 import com.walletconnect.sample.wallet.domain.ISSUER
 import com.walletconnect.sample.wallet.domain.PRIVATE_KEY_1
@@ -39,7 +37,6 @@ class AuthRequestViewModel : ViewModel() {
                         continuation.resume(Unit)
                     },
                     onError = { error ->
-                        Firebase.crashlytics.recordException(error.throwable)
                         AuthRequestStore.removeActiveSession(request)
                         WCDelegate.authRequestEvent = null
                         continuation.resumeWithException(error.throwable)
@@ -62,7 +59,6 @@ class AuthRequestViewModel : ViewModel() {
                         continuation.resume(Unit)
                     },
                     onError = { error ->
-                        Firebase.crashlytics.recordException(error.throwable)
                         WCDelegate.authRequestEvent = null
                         continuation.resumeWithException(error.throwable)
                     })

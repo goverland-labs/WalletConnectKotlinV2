@@ -1,9 +1,9 @@
 plugins {
     id(libs.plugins.android.application.get().pluginId)
     id(libs.plugins.kotlin.android.get().pluginId)
-    alias(libs.plugins.google.services)
+    //alias(libs.plugins.google.services)
     alias(libs.plugins.firebase.crashlytics)
-    id("signing-config")
+   // id("signing-config")
 //    id("io.sentry.android.gradle") version "3.12.0"
 }
 
@@ -31,11 +31,11 @@ android {
             buildConfigField("String", "WALLET_APP_LINK", "\"https://web3modal-laboratory-git-chore-kotlin-assetlinks-walletconnect1.vercel.app/wallet_release\"")
         }
 
-        getByName("internal") {
+/*        getByName("internal") {
             manifestPlaceholders["pathPrefix"] = "/wallet_internal"
             buildConfigField("String", "WALLET_APP_LINK", "\"https://web3modal-laboratory-git-chore-kotlin-assetlinks-walletconnect1.vercel.app/wallet_internal\"")
 
-        }
+        }*/
 
         getByName("debug") {
             manifestPlaceholders["pathPrefix"] = "/wallet_debug"
@@ -73,8 +73,8 @@ dependencies {
     implementation(project(":sample:common"))
     implementation("androidx.compose.material3:material3:1.0.0-alpha08")
 
-    implementation(platform(libs.firebase.bom))
-    implementation(libs.bundles.firebase)
+   // implementation(platform(libs.firebase.bom))
+   // implementation(libs.bundles.firebase)
 
     implementation(libs.bundles.androidxAppCompat)
 
@@ -126,9 +126,9 @@ dependencies {
     debugImplementation(project(":product:web3wallet"))
     debugImplementation(project(":protocol:notify"))
 
-    internalImplementation(project(":core:android"))
-    internalImplementation(project(":product:web3wallet"))
-    internalImplementation(project(":protocol:notify"))
+    //internalImplementation(project(":core:android"))
+   // internalImplementation(project(":product:web3wallet"))
+   // internalImplementation(project(":protocol:notify"))
 
     releaseImplementation(platform("com.walletconnect:android-bom:$BOM_VERSION"))
     releaseImplementation("com.walletconnect:android-core")

@@ -36,11 +36,7 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.material.ripple.rememberRipple
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -109,6 +105,7 @@ class MainActivity : ComponentActivity() {
                     initialValue = ModalBottomSheetValue.Hidden,
                     skipHalfExpanded = true
                 )
+                val scope = rememberCoroutineScope()
                 val bottomSheetNavigator = BottomSheetNavigator(sheetState)
                 val navController = rememberNavController(bottomSheetNavigator)
 
@@ -140,6 +137,14 @@ class MainActivity : ComponentActivity() {
                                         navigationIcon = {},
                                         actions = {
                                             ThemeModeIcon(isDark) { isDark = it }
+                                            Button(onClick = {
+                                                scope.launch {
+
+                                                    scaffoldState.drawerState.open()
+                                                }
+                                            }) {
+                                                Text("drawer")
+                                            }
                                         }
                                     )
                                     PredefineThemes(
